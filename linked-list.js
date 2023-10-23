@@ -26,7 +26,25 @@ class LinkedList {
   remove(value) {}
 
   // 검색
-  search(value) {}
+  // 검색 위치(index)까지 넘긴 횟수만큼 반복문을 이용해 다음 node를 찾는다.
+  /*
+  ex) index : 3 일 때,
+  1. 0 < 3 -> current = current.next -> ll 의 1번 값 : 2
+  2. 1 < 3 -> current = current.next -> ll 의 2번 값 : 3
+  3. 2 < 3 -> current = current.next -> ll 의 3번 값 : 4
+  4. 3 < 3 -> X => 4 출력
+  */
+  search(index) {
+    let count = 0; // 검색 위치(index)까지 넘긴 횟수
+    let current = this.head; // 현재 위치
+
+    while (count < index) {
+      current = current?.next;
+      count++;
+    }
+
+    return current?.value;
+  }
 }
 
 // 연결리스트는 각각 요소를 '노드'라고 칭한다.
@@ -49,4 +67,16 @@ ll.add(4);
 ll.add(5);
 ll.add(6);
 
-console.log("li", ll.add(7));
+console.log("ll add", ll.add(7));
+
+console.log("ll search", ll.search(3)); // 4 출력
+console.log("ll search", ll.search(5)); // 6 출력
+console.log("ll search", ll.search(7)); // undefined 출력
+
+ll.remove(4);
+console.log(ll.search(4)); // 6 출력
+
+ll.remove(4);
+console.log(ll.search(4)); // undefined 출력
+
+console.log(ll.remove(4)); // undefined 출력
