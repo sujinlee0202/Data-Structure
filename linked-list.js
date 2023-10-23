@@ -23,17 +23,35 @@ class LinkedList {
   }
 
   // 삭제
-  remove(value) {}
+  remove(index) {
+    let count = 0;
+    let prev;
+    let current = this.head;
+
+    // 한개씩 탐색할 때마다 current 값을 prev로, current.next를 current로 할당
+    while (count < index) {
+      prev = current;
+      current = current?.next;
+      count++;
+    }
+
+    if (prev && current) {
+      prev.next = current.next;
+      this.length--; // Node를 삭제해서 length 감소
+      return this.length;
+    } else if (current) {
+      // 예외사항 1. 첫 데이터 삭제 시 prev가 undefined일 경우
+      this.head = current.next;
+      this.length--;
+      return this.length;
+    } else {
+      // 예외사항 2. 삭제하고자 하는 대상이 없을 때
+      return undefined;
+    }
+  }
 
   // 검색
   // 검색 위치(index)까지 넘긴 횟수만큼 반복문을 이용해 다음 node를 찾는다.
-  /*
-  ex) index : 3 일 때,
-  1. 0 < 3 -> current = current.next -> ll 의 1번 값 : 2
-  2. 1 < 3 -> current = current.next -> ll 의 2번 값 : 3
-  3. 2 < 3 -> current = current.next -> ll 의 3번 값 : 4
-  4. 3 < 3 -> X => 4 출력
-  */
   search(index) {
     let count = 0; // 검색 위치(index)까지 넘긴 횟수
     let current = this.head; // 현재 위치
@@ -67,16 +85,16 @@ ll.add(4);
 ll.add(5);
 ll.add(6);
 
-console.log("ll add", ll.add(7));
+// console.log("ll add", ll.add(7));
 
 console.log("ll search", ll.search(3)); // 4 출력
 console.log("ll search", ll.search(5)); // 6 출력
 console.log("ll search", ll.search(7)); // undefined 출력
 
 ll.remove(4);
-console.log(ll.search(4)); // 6 출력
+console.log("remove", ll.search(4)); // 6 출력
 
 ll.remove(4);
-console.log(ll.search(4)); // undefined 출력
+console.log("remove", ll.search(4)); // undefined 출력
 
-console.log(ll.remove(4)); // undefined 출력
+console.log("remove", ll.remove(4)); // undefined 출력
