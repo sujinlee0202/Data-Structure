@@ -111,3 +111,20 @@ queue.js
 - FIFO (선입선출) : 먼저 들어온 것이 먼저 나간다 (ex. 대기열)
 - 시간복잡도 : O(1)
 - JavaScript 배열의 push, shift 로 구현 가능 (push -> enqueue, shift -> dequeue)
+
+### 4. 트리
+
+```
+tree.js
+```
+
+- 계층적인 자료를 표현하는데 적합한 자료구조
+- 각각의 요소를 노드라고 하고 최상단의 노드를 루트(root), 말단 노드를 리프(leaf)라고 한다.
+- HTML이 트리구조를 표현하기 쉬운 예시이다.
+  ```
+  HTML ┬ HEAD ┬ link
+       │      └ meta
+       └ BODY ┬ div
+              └ p
+       ...
+  ```
