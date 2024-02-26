@@ -38,7 +38,44 @@ class BinarySearchTree {
     }
   }
 
-  search(value) {}
+  #search(node, value) {
+    if (node.value > value) {
+      // 루트 노드보다 작은 값 찾을 경우
+      if (!node.left) return null;
+
+      if (node.left.value === value) {
+        // 찾는 값일경우 return
+        return node.left;
+      } else {
+        // 찾는 값이 아닐경우 다시 서브트리로 이동
+        return this.#search(node.left, value);
+      }
+    } else {
+      // 루트 노드보다 큰 값 찾을 경우
+      if (!node.right) return null;
+
+      if (node.right.value === value) {
+        return node.right;
+      } else {
+        return this.#search(node.right, value);
+      }
+    }
+  }
+
+  // insert와 마찬가지로 서브트리에 위임하는식으로 구현
+  // 찾았을 경우 값 return, 못찾았을 경우 null return
+  search(value) {
+    // 초기값이 없는 경우
+    if (!this.root) return null;
+
+    if (this.root.value === value) {
+      // 첫 노드에서 찾을 경우
+      return this.root;
+    } else {
+      // 첫 노드에 없을 경우
+      return this.#search(this.root, value);
+    }
+  }
   remove(value) {}
   // update => search를 활용해서 구현할 수 있다.
 }
@@ -63,6 +100,8 @@ bst.insert(4);
 bst.insert(13);
 
 console.log(bst);
+
+console.log(bst.search(10));
 
 /*
 
