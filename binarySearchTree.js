@@ -76,7 +76,63 @@ class BinarySearchTree {
       return this.#search(this.root, value);
     }
   }
-  remove(value) {}
+
+  #remove(node, value) {
+    // 제거할 값이 bst에 존재하지 않는 경우
+    if (!node) {
+      return false;
+    }
+
+    // 지울 값을 찾은 경우
+    if (node.value === value) {
+      // 자식 입장
+      if (!node.left && !node.right) {
+        // leaf인 경우
+        return null;
+      } else if (!node.left) {
+        // 왼쪽이 없는 경우
+        return node.right;
+      } else if (!node.right) {
+        // 오른쪽이 없는 경우
+        return node.left;
+      } else {
+        // 양쪽 다 자식이 있는 경우
+        let exchange = node.left;
+        // 오른쪽이 더이상 나오지 않을 때까지 이동
+        while (exchange.right) {
+          exchange = exchange.right;
+        }
+
+        // 바꾸기
+        let temp = node.value;
+        node.value = exchange.value;
+        exchange.value = temp;
+
+        node.left = this.#remove(node.left, temp);
+
+        return node;
+      }
+    } else {
+      // 부모 입장 (값을 못찾은 경우)
+      if (node.value > value) {
+        node.left = this.#remove(node.left, value);
+        return node;
+      } else {
+        node.right = this.#remove(node.right, value);
+        return node;
+      }
+    }
+  }
+
+  remove(value) {
+    // 1. leaf -> 그냥 제거
+    // 2. leaf x, 자식 node가 한쪽에 있는 경우 -> 노드가 끌어올려지게된다.
+    // 3. leaf x, 자식 node가 양쪽에 있는 경우 -> 왼쪽에서 가장 큰 수와 바꾼 후 leaf 제거
+    const node = this.#remove(this.root, value);
+    if (node) {
+      this.root = node;
+    }
+  }
   // update => search를 활용해서 구현할 수 있다.
 }
 
@@ -102,6 +158,9 @@ bst.insert(13);
 console.log(bst);
 
 console.log(bst.search(10));
+
+bst.remove(8);
+console.log(bst.root);
 
 /*
 
