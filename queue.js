@@ -1,4 +1,4 @@
-class Queue {
+export class Queue {
   arr = [];
 
   enqueue(value) {
@@ -6,7 +6,7 @@ class Queue {
   }
 
   dequeue() {
-    this.arr.shift();
+    return this.arr.shift();
   }
 
   peek() {
@@ -19,17 +19,17 @@ class Queue {
   }
 }
 
-const queue = new Queue();
+// const queue = new Queue();
 
-queue.enqueue(1);
-queue.enqueue(3);
-queue.enqueue(5);
-queue.enqueue(2);
-queue.enqueue(4);
+// queue.enqueue(1);
+// queue.enqueue(3);
+// queue.enqueue(5);
+// queue.enqueue(2);
+// queue.enqueue(4);
 
-console.log(queue.length); // 5 출력
-console.log(queue.peek()); // 1 출력
+// console.log(queue.length); // 5 출력
+// console.log(queue.peek()); // 1 출력
 
-queue.dequeue();
+// queue.dequeue();
 
-console.log(queue.peek()); // 3 출력
+// console.log(queue.peek()); // 3 출력

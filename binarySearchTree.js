@@ -1,5 +1,7 @@
-class BinarySearchTree {
+export class BinarySearchTree {
   root = null;
+  // TODO : tree의 개수 세기
+  length = 0;
 
   #insert(node, value) {
     // TODO : 같은 값을 넣을 경우 Error 처리
@@ -80,7 +82,7 @@ class BinarySearchTree {
   #remove(node, value) {
     // 제거할 값이 bst에 존재하지 않는 경우
     if (!node) {
-      return false;
+      return null;
     }
 
     // 지울 값을 찾은 경우
@@ -128,10 +130,7 @@ class BinarySearchTree {
     // 1. leaf -> 그냥 제거
     // 2. leaf x, 자식 node가 한쪽에 있는 경우 -> 노드가 끌어올려지게된다.
     // 3. leaf x, 자식 node가 양쪽에 있는 경우 -> 왼쪽에서 가장 큰 수와 바꾼 후 leaf 제거
-    const node = this.#remove(this.root, value);
-    if (node) {
-      this.root = node;
-    }
+    this.root = this.#remove(this.root, value);
   }
   // update => search를 활용해서 구현할 수 있다.
 }
@@ -144,23 +143,29 @@ class Node {
   }
 }
 
-const bst = new BinarySearchTree();
-bst.insert(8);
-bst.insert(10);
-bst.insert(3);
-bst.insert(1);
-bst.insert(14);
-bst.insert(6);
-bst.insert(7);
-bst.insert(4);
-bst.insert(13);
+// const bst = new BinarySearchTree();
+// bst.insert(8);
+// bst.insert(10);
+// bst.insert(3);
+// bst.insert(1);
+// bst.insert(14);
+// bst.insert(6);
+// bst.insert(7);
+// bst.insert(4);
+// bst.insert(13);
 
-console.log(bst);
+// console.log(bst);
 
-console.log(bst.search(10));
+// console.log(bst.search(10));
 
-bst.remove(8);
-console.log(bst.root);
+// bst.remove(8);
+// console.log(bst.root);
+
+// const bst2 = new BinarySearchTree();
+// bst2.insert(50);
+// bst2.remove(50);
+
+// console.log(bst2.root);
 
 /*
 
