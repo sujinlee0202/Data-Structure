@@ -61,7 +61,7 @@ class Heap {
 
   search(value) {
     for (let i = 0; i < this.arr.length; i++) {
-      if (arr[i] === value) {
+      if (this.arr[i] === value) {
         return i;
       }
     }
@@ -76,6 +76,49 @@ class Heap {
       sortedArray.push(this.remove());
     }
     return sortedArray;
+  }
+
+  update(value, newValue) {
+    const index = this.search(value); // 특정 값 찿기
+    if (index === null) return false; // 못찾은 경우
+
+    // 찾은 경우
+    this.arr[index] = newValue;
+    // 값을 찾았지만 heap이 깨진 경우를 대비해 heapify 실행
+    // leaf가 아닌 첫번째 노드부터 시작해 root까지 가서 heapify 실행
+    for (let i = Math.floor(this.arr.length / 2 - 1); i >= 0; i--) {
+      this.#heapify();
+    }
+  }
+
+  // 루트가 아닌 특정 값 삭제
+  remove(value) {
+    const index = this.search(value); // 특정 값 찿기
+    if (index === null) return false; // 못찾은 경우
+
+    // 찾은 경우 => 해당 값 삭제
+    this.arr.splice(index, 1);
+    // 값을 삭제했을 때 heap이 깨진 경우를 대비해 heapify 실행
+    // leaf가 아닌 첫번째 노드부터 시작해 root까지 가서 heapify 실행
+    for (let i = Math.floor(this.arr.length / 2 - 1); i >= 0; i--) {
+      this.#heapify();
+    }
+  }
+
+  #heapify() {
+    // 특정 값(더 큰 값) 찾아서 자리 바꿔주기
+    const leftIndex = index * 2 + 1;
+    const rightIndex = index * 2 + 2;
+    const bigger =
+      (this.arr[leftIndex] || 0) > (this.arr[rightIndex] || 0)
+        ? leftIndex
+        : rightIndex;
+
+    if (this.arr[index] < this.arr[bigger]) {
+      const temp = this.arr[index];
+      this.arr[index] = this.arr[bigger];
+      this.arr[bigger] = temp;
+    }
   }
 }
 
